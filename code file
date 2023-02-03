@@ -1,0 +1,102 @@
+import random 
+import day_7_supports
+import os
+stages = [
+    '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========
+'''
+]
+
+chosen_word = random.choice(day_7_supports.random_words)
+print("Hey there! \n The chosen word is: ",chosen_word)
+display = []
+
+for dash in range(len(chosen_word)):
+    display.append(" - ")
+
+print(" ".join(display))
+end = False
+lives = 6 
+
+while end is False: 
+
+    choise = input("\n Enter your choise: ").lower()
+    os.system('cls||clear')
+    if choise in display:
+      print("\n You've already guessed this alphabet, guess another! \n")
+    
+    for position in range(len(chosen_word)):
+      letter = chosen_word[position]
+      if choise == letter:
+        display[position]  = letter
+
+    if not choise == letter:
+      print(" ".join(display))    
+    
+    if choise not in chosen_word:
+      print(f"\n You guessed the letter {choise}, that's not the word. you loose a life. ")
+      print(stages[lives])
+      lives -= 1   
+    
+    if not " - " in display:
+      end = True
+      print("You Won!!!!!!!!") 
+     
+    if lives < 0:
+      print("\n You lost, Try again.\n ")
+      print(stages[0])
+      end = True
+      print(f'The correct word was "{chosen_word}"\n ')
